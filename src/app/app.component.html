@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Notepad App</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            <div class="list-group">
+                <div
+                    class="list-group-item note"
+                    [ngClass]="{
+                        highlight: selectedIndex === note.id,
+                        favorite: note.favorite
+                    }"
+                    *ngFor="let note of notes$ | async; let i = index"
+                    (click)="selectNote(note)"
+                    [ngStyle]="{ color: note.color }"
+                >
+                    {{ note.title }}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div>
+                <form [formGroup]="myForm">
+                    <div class="form-group">
+                        <label
+                            >Title:
+                            <input
+                                class="note-title form-control"
+                                name="title"
+                                formControlName="title"
+                                required
+                        /></label>
+                        <div class="form-error">Field is required</div>
+                    </div>
+                    <div class="form-group">
+                        <label
+                            >Note:
+                            <textarea
+                                class="note-body form-control"
+                                name="body"
+                                formControlName="body"
+                            ></textarea>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label
+                            >favorite:
+                            <input
+                                type="checkbox"
+                                class="note-favorite"
+                                formControlName="favorite"
+                                name="favorite"
+                        /></label>
+                    </div>
+                    <div class="form-group">
+                        <label
+                            >Color:
+                            <input
+                                type="color"
+                                class="note-color"
+                                formControlName="color"
+                                name="color"
+                        /></label>
+                    </div>
+                    <div class="form-group">
+                        <button
+                            (click)="saveNote(myForm.value)"
+                            class="btn btn-success note-save"
+                        >
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                Please select note or
+                <a href="#" class="note-new" (click)="newNote()"
+                    >click here to create new one</a
+                >
+            </div>
+        </div>
+    </div>
+</div>
